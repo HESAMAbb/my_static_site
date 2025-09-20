@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>تحلیل هوشمند درصدهای آزمون</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="main-header">
+    <h1>تحلیل هوشمند درصدهای شما</h1>
+  </header>
+
+  <form onsubmit="analyzePercentages(event)">
+    <select id="paye">
+      <option value="10">پایه دهم</option>
+      <option value="11">پایه یازدهم</option>
+      <option value="12">پایه دوازدهم</option>
+    </select><br><br>
+
+    <input type="number" id="zist" placeholder="درصد زیست‌شناسی" required><br><br>
+    <input type="number" id="fizik" placeholder="درصد فیزیک" required><br><br>
+    <input type="number" id="shimi" placeholder="درصد شیمی" required><br><br>
+    <input type="number" id="riyazi" placeholder="درصد ریاضی" required><br><br>
+    <input type="number" id="zamin" placeholder="درصد زمین‌شناسی" required><br><br>
+
+    <button type="submit">تحلیل کن!</button>
+  </form>
+
+  <div id="analysis" style="margin-top: 30px;"></div>
+
+  <script>
+    function analyzePercentages(e) {
+      e.preventDefault();
+
+      const paye = document.getElementById("paye").value;
+      const zist = parseFloat(document.getElementById("zist").value);
+      const fizik = parseFloat(document.getElementById("fizik").value);
+      const shimi = parseFloat(document.getElementById("shimi").value);
+      const riyazi = parseFloat(document.getElementById("riyazi").value);
+      const zamin = parseFloat(document.getElementById("zamin").value);
+
+      let payeText = "";
+      if (paye === "10") payeText = "پایه دهم";
+      else if (paye === "11") payeText = "پایه یازدهم";
+      else payeText = "پایه دوازدهم";
+
+      let feedback = `🧠 تحلیل هوشمند برای ${payeText}:<br><br>`;
+
+      // زیست‌شناسی
+      if (zist >= 80) {
+        feedback += "✅ زیستت عالیه! نشون می‌ده مفاهیم رو خوب درک کردی.<br>";
+      } else if (zist >= 50) {
+        feedback += "🟡 زیستت متوسطه—اگه مرور مفهومی رو تقویت کنی، جهش خوبی خواهی داشت.<br>";
+      } else {
+        feedback += "🔴 زیستت ضعیفه—با توجه به ضریب بالا، این درس کلیدی‌ترین نقطه‌ی جهشه.<br>";
+      }
+
+      // فیزیک
+      if (fizik >= 70) {
+        feedback += "✅ فیزیکت خوبه—احتمالاً در مسائل محاسباتی مسلطی.<br>";
+      } else if (fizik >= 40) {
+        feedback += "🟡 فیزیکت قابل قبول ولی ناپایدار—تمرین بیشتر روی تست‌های زمان‌دار پیشنهاد می‌شه.<br>";
+      } else {
+        feedback += "🔴 فیزیکت پایینه—شاید باید روش حل‌مسأله‌ات رو بازبینی کنی.<br>";
+      }
+
+      // شیمی
+      if (shimi >= 75) {
+        feedback += "✅ شیمی‌ات قویه—احتمالاً هم مفاهیم رو بلدی هم محاسبات رو.<br>";
+      } else if (shimi >= 50) {
+        feedback += "🟡 شیمی‌ات متوسطه—مرور واکنش‌ها و حفظیات می‌تونه کمک کنه.<br>";
+      } else {
+        feedback += "🔴 شیمی‌ات ضعیفه—به‌خصوص در پایه یازدهم، این درس خیلی تعیین‌کننده‌ست.<br>";
+      }
+
+      // ریاضی
+      if (riyazi >= 60) {
+        feedback += "✅ ریاضی‌ات قابل قبوله—اگه پایه‌ات قوی باشه، می‌تونی سریع رشد کنی.<br>";
+      } else {
+        feedback += "🔴 ریاضی‌ات پایینه—تمرین تستی و مرور مفاهیم پایه‌ای توصیه می‌شه.<br>";
+      }
+
+      // زمین‌شناسی
+      if (zamin >= 40) {
+        feedback += "✅ زمین‌شناسی‌ات خوبه—با توجه به ضریب پایین، همین سطح هم کافیه.<br>";
+      } else {
+        feedback += "🟡 زمین‌شناسی‌ات پایینه—ولی چون ضریبش ۱.۲ هست، با کمترین تلاش می‌تونی نمره‌اش رو بالا ببری.<br>";
+      }
+
+      document.getElementById("analysis").innerHTML = `
+        <div style="background:#f0f8ff; padding:20px; border-radius:10px; line-height:1.8;">
+          ${feedback}
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
